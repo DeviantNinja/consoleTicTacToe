@@ -14,13 +14,10 @@ public class Board {
     }
 
     private static String decorator(String s){
-        switch(s) {
-            case "O":
-                return BLUE + s + RESET;
-            case "X":
-                return RED + s + RESET;
-            default:
-                return s;
-        }
+        return switch (s) {
+            case "O" -> BLUE + s + RESET;
+            case "X" -> RED + s + RESET;
+            default -> s;
+        };
     }
 }
