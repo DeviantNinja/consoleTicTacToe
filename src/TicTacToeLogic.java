@@ -17,7 +17,7 @@ public class TicTacToeLogic {
     public boolean updateBoard(int x, int y, boolean playerOne) {
         if(x < 1 || x > 3) return false;
         if(y < 1 || y > 3) return false;
-        if(!board[y-1][x-1].equals(" ")) return false; //check if cell has already been used
+        if(board[y-1][x-1] != null) return false; //check if cell has already been used
 
         if(playerOne) {
             board[y-1][x-1] = "X";
@@ -28,7 +28,7 @@ public class TicTacToeLogic {
         return true;
     }
 
-    public boolean checkWinner() {
+    public boolean winner() {
         return checkHorizontalWinner() ||
                checkVerticalWinner() ||
                checkLeftDiagonal() ||
