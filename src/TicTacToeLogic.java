@@ -2,15 +2,15 @@ public class TicTacToeLogic {
     private String[][] board;
 
     public TicTacToeLogic() {
-        initialize();
+        board = new String[3][3];
+    }
+
+    public TicTacToeLogic(String[][] testBoard) {
+        board = testBoard;
     }
 
     public String[][] getBoard() {
         return board;
-    }
-
-    private void initialize() {
-        board = new String[][]{{" ", " ", " "},{" ", " ", " "},{" ", " ", " "}};
     }
 
     //returns false if invalid move, returns true if valid
@@ -20,44 +20,51 @@ public class TicTacToeLogic {
         if(!board[y-1][x-1].equals(" ")) return false; //check if cell has already been used
 
         if(playerOne) {
-            board[x-1][y-1] = "X";
+            board[y-1][x-1] = "X";
         } else {
-            board[x-1][y-1] = "O";
+            board[y-1][x-1] = "O";
         }
 
         return true;
     }
 
     public boolean checkWinner() {
-        if(checkHorizontalWinner()) return true;
-        if(checkVerticalWinner()) return true;
-        if(checkRightDiagonal()) return true;
-        if(checkLeftDiagonal()) return true;
-        return false;
+        return checkHorizontalWinner() ||
+               checkVerticalWinner() ||
+               checkLeftDiagonal() ||
+               checkRightDiagonal();
     }
-    //TODO need to change the check conditions as currently will win even if its just spaces.
-    //TODO check if the X and Y are the wrong way around.
-    //TODO should use .equals() with Stringss
+
     private boolean checkHorizontalWinner() {
         for (int row = 0; row < 3; row++) {
-            if(board[row][0] == board[row][1] && board[row][1] == board[row][2]) return true;
+            if(board[row][0] != null &&
+               board[row][0].equals(board[row][1]) &&
+               board[row][1].equals(board[row][2])
+            ) return true;
         }
         return false;
     }
-    //TODO need to change the check conditions as currently will win even if its just spaces.
+
     private boolean checkVerticalWinner() {
         for (int col = 0; col < 3; col++) {
-            if(board[0][col] == board[1][col] && board[1][col] == board[2][col]) return true;
+            if(board[0][col] != null &&
+               board[0][col].equals(board[1][col]) &&
+               board[1][col].equals(board[2][col])
+            ) return true;
         }
         return false;
     }
-    //TODO need to change the check conditions as currently will win even if its just spaces.
+
     private boolean checkRightDiagonal() {
-        return board[0][0] == board[1][1] && board[1][1] == board[2][2];
+        return board[0][0] != null &&
+               board[0][0].equals(board[1][1]) &&
+               board[1][1].equals(board[2][2]);
     }
-    //TODO need to change the check conditions as currently will win even if its just spaces.
+
     private boolean checkLeftDiagonal() {
-        return board[0][2] == board[1][1] && board[1][1] == board[2][0];
+        return board[0][2] != null &&
+               board[0][2].equals(board[1][1]) &&
+               board[1][1].equals(board[2][0]);
     }
 
 }
