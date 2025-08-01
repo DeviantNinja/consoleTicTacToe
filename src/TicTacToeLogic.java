@@ -5,7 +5,7 @@ public class TicTacToeLogic {
         BOARD = new String[3][3];
     }
 
-    public String[][] getBOARD() {
+    public String[][] getBoard() {
         return BOARD;
     }
 
