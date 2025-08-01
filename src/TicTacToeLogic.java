@@ -1,28 +1,24 @@
 public class TicTacToeLogic {
-    private String[][] board;
+    private final String[][] BOARD;
 
     public TicTacToeLogic() {
-        board = new String[3][3];
+        BOARD = new String[3][3];
     }
 
-    public TicTacToeLogic(String[][] testBoard) {
-        board = testBoard;
-    }
-
-    public String[][] getBoard() {
-        return board;
+    public String[][] getBOARD() {
+        return BOARD;
     }
 
     //returns false if invalid move, returns true if valid
     public boolean updateBoard(int x, int y, boolean playerOne) {
         if(x < 1 || x > 3) return false;
         if(y < 1 || y > 3) return false;
-        if(board[y-1][x-1] != null) return false; //check if cell has already been used
+        if(BOARD[y-1][x-1] != null) return false; //check if cell has already been used
 
         if(playerOne) {
-            board[y-1][x-1] = "X";
+            BOARD[y-1][x-1] = "X";
         } else {
-            board[y-1][x-1] = "O";
+            BOARD[y-1][x-1] = "O";
         }
 
         return true;
@@ -37,9 +33,9 @@ public class TicTacToeLogic {
 
     private boolean checkHorizontalWinner() {
         for (int row = 0; row < 3; row++) {
-            if(board[row][0] != null &&
-               board[row][0].equals(board[row][1]) &&
-               board[row][1].equals(board[row][2])
+            if(BOARD[row][0] != null &&
+               BOARD[row][0].equals(BOARD[row][1]) &&
+               BOARD[row][1].equals(BOARD[row][2])
             ) return true;
         }
         return false;
@@ -47,24 +43,24 @@ public class TicTacToeLogic {
 
     private boolean checkVerticalWinner() {
         for (int col = 0; col < 3; col++) {
-            if(board[0][col] != null &&
-               board[0][col].equals(board[1][col]) &&
-               board[1][col].equals(board[2][col])
+            if(BOARD[0][col] != null &&
+               BOARD[0][col].equals(BOARD[1][col]) &&
+               BOARD[1][col].equals(BOARD[2][col])
             ) return true;
         }
         return false;
     }
 
     private boolean checkRightDiagonal() {
-        return board[0][0] != null &&
-               board[0][0].equals(board[1][1]) &&
-               board[1][1].equals(board[2][2]);
+        return BOARD[0][0] != null &&
+               BOARD[0][0].equals(BOARD[1][1]) &&
+               BOARD[1][1].equals(BOARD[2][2]);
     }
 
     private boolean checkLeftDiagonal() {
-        return board[0][2] != null &&
-               board[0][2].equals(board[1][1]) &&
-               board[1][1].equals(board[2][0]);
+        return BOARD[0][2] != null &&
+               BOARD[0][2].equals(BOARD[1][1]) &&
+               BOARD[1][1].equals(BOARD[2][0]);
     }
 
 }

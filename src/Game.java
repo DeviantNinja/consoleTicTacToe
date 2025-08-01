@@ -9,14 +9,14 @@ public class Game {
 
 
         while(!gameOver) {
-            Board.display(tic.getBoard());
+            Board.display(tic.getBOARD());
             System.out.println();
             System.out.println(player + "'s turn");
 
             makeMove(isPlayerOne, tic);
 
             if(tic.winner()) {
-                Board.display(tic.getBoard());
+                Board.display(tic.getBOARD());
                 System.out.println(player + " is the winner!");
                 gameOver = true;
             }
