@@ -2,35 +2,18 @@ import java.util.Scanner;
 
 public class Game {
     public static void main(String[] args) {
-        //String[][] test = {{null, null, "X"},{null, null, "X"},{null, null, "X"}};
         TicTacToeLogic tic = new TicTacToeLogic();
-
-        boolean playerOne = true;
+        boolean isPlayerOne = true;
         boolean gameOver = false;
         String player = "Player One";
+
 
         while(!gameOver) {
             Board.display(tic.getBoard());
             System.out.println();
             System.out.println(player + "'s turn");
 
-            boolean validInput = false;
-
-            //TODO move this logic into a method to make the game loop easier
-            //TODO when invalid display a message as such
-            while(!validInput){
-                int x;
-                int y;
-                Scanner input = new Scanner(System.in);
-                System.out.print("Enter X: ");
-                x = input.nextInt();
-                System.out.print("Enter Y: ");
-                y = input.nextInt();
-
-                if(tic.updateBoard(x,y, playerOne)) {
-                    validInput = true;
-                }
-            }
+            makeMove(isPlayerOne, tic);
 
             if(tic.winner()) {
                 Board.display(tic.getBoard());
@@ -38,12 +21,33 @@ public class Game {
                 gameOver = true;
             }
 
-            playerOne = !playerOne;
-            player = playerOne ? "Player One" : "Player Two";
-
-
+            isPlayerOne = !isPlayerOne;
+            player = isPlayerOne ? "Player One" : "Player Two";
         }
+    }
 
+    public static void makeMove(boolean isPlayerOne, TicTacToeLogic tic) {
+        int x = getInput("x");
+        int y = getInput("y");
+        validateMove(x,y,isPlayerOne,tic);
+    }
+
+    public static int getInput(String corinate) {
+        Scanner input = new Scanner(System.in);
+        System.out.printf("Enter %s : ",corinate);
+        while (!input.hasNextInt()) {
+            System.out.print("Invalid input. Please enter a number between 1-3: ");
+            input.next();
+        }
+        return input.nextInt();
+    }
+
+    public static void validateMove(int x, int y, boolean isPlayerOne, TicTacToeLogic tic) {
+        boolean validMove = tic.updateBoard(x,y,isPlayerOne);
+        if(!validMove) {
+            System.out.println("Invalid Move");
+            makeMove(isPlayerOne, tic);
+        }
     }
 
 }
